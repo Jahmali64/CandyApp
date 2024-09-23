@@ -1,0 +1,65 @@
+﻿@inherits LayoutComponentBase
+<MudThemeProvider @bind-IsDarkMode="_darkMode" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<PageTitle>CandyApp</PageTitle>
+
+<MudLayout>
+    <CascadingValue TValue="bool" Value="_darkMode">
+        <MudAppBar Elevation="1">
+            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+            <MudSpacer />
+            <MudToggleIconButton Toggled="@_darkMode" ToggledChanged="DarkModeToggle" Icon="@Icons.Material.Filled.DarkMode" ToggledIcon="@Icons.Material.Filled.WbSunny"></MudToggleIconButton>
+        </MudAppBar>
+        <MudDrawer @bind-Open="_drawerOpen" Elevation="2">
+            <NavMenu />
+        </MudDrawer>
+        <MudMainContent>
+            <MudContainer Class="mt-6" MaxWidth="MaxWidth.ExtraExtraLarge">
+                <ErrorBoundary @ref="_errorBoundary">
+                    <ChildContent>
+                        @Body
+                    </ChildContent>
+                    <ErrorContent Context="ex">
+                        <MudText Class="mb-4">An unhandeled error has occured</MudText>
+                        <MudText>Message:</MudText>
+                        <MudText Class="mb-4">@ex.Message</MudText>
+                        <MudText>Location:</MudText>
+                        <MudText Class="mb-4">@ex.StackTrace</MudText>
+                    </ErrorContent>
+                </ErrorBoundary>
+            </MudContainer>
+        </MudMainContent>
+    </CascadingValue>
+</MudLayout>
+
+@code {
+    [Inject] private ILocalStorageService _localStorageService { get; set; } = default!;
+
+    private bool _darkMode = false;
+    private bool _drawerOpen = true;
+    private ErrorBoundary? _errorBoundary = default;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender) {
+        if (firstRender) {
+            try {
+                _darkMode = await _localStorageService.GetItemAsync<bool>("DarkMode");
+            } finally {
+                StateHasChanged();
+            }
+        }
+    }
+
+    private async Task DarkModeToggle() {
+        _darkMode = !_darkMode;
+        await _localStorageService.SetItemAsync("DarkMode", _darkMode);
+    }
+
+    private void DrawerToggle() => _drawerOpen = !_drawerOpen;
+
+    protected override void OnParametersSet() {
+        _errorBoundary?.Recover();
+    }
+}

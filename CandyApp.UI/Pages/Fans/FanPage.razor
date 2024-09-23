@@ -1,0 +1,9 @@
+﻿@page "/fan/{FanId:int}"
+
+@using CandyApp.UI.Pages.Fans.Components;
+
+<FanForm FanId="FanId" />
+
+@code {
+    [Parameter] public int FanId { get; set; }
+}

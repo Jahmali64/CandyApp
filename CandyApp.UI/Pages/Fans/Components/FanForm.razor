@@ -1,0 +1,51 @@
+﻿@if (_fan is not null) {
+    <MudCard>
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">Fan</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudDivider />
+        <MudCardContent>
+            <MudGrid>
+                <MudItem xs="12" sm="6">
+                    <MudTextField Label="First Name" @bind-Value="_fan.FirstName" />
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudTextField Label="Last Name" @bind-Value="_fan.LastName" />
+                </MudItem>
+                <MudItem xs="12">
+                    <MudTextField Label="Email" @bind-Value="_fan.Email" />
+                </MudItem>
+                <MudItem xs="12">
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="SaveFan">Save</MudButton>
+                    <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="Cancel">Cancel</MudButton>
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+    </MudCard>
+} else {
+    <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="200px" Height="110px" />
+}
+
+@code {
+    [Inject] private IFanService _fanService { get; set; } = default!;
+    [Inject] private NavigationManager NavigationManager { get; set; } = default!;
+
+    [Parameter] public int FanId { get; set; }
+
+    private FanVM _fan = default!;
+
+    protected override async Task OnInitializedAsync() {
+        _fan = await _fanService.GetFanAsync(FanId) ?? new FanVM();
+        StateHasChanged();
+    }
+
+    private async Task SaveFan() {
+        await _fanService.SaveAsync(_fan);
+    }
+
+    private void Cancel() {
+        NavigationManager.NavigateTo("/fans");
+    }
+}

@@ -1,0 +1,62 @@
+﻿<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">Fans</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudDivider />
+    <MudCardContent>
+        <MudDataGrid Items="_fans" Dense Hover Bordered Striped Virtualize LoadingProgressColor="Color.Info" Loading="_isLoading">
+            <ToolBarContent>
+                <MudStack Class="flex-grow-1" Row="true" Spacing="0" Justify="Justify.SpaceBetween">
+                    <MudStack Row="true">
+                        <MudTooltip Text="Add">
+                            <MudFab Size="Size.Small" Color="Color.Success" StartIcon="@Icons.Material.Filled.Add" @onclick="() => ViewFan()" />
+                        </MudTooltip>
+                    </MudStack>
+                </MudStack>
+            </ToolBarContent>
+            <Columns>
+                <PropertyColumn Property="x => x.FanId" Title="ID" />
+                <PropertyColumn Property="x => x.FirstName" Title="First Name" />
+                <PropertyColumn Property="x => x.LastName" Title="Last Name" />
+                <PropertyColumn Property="x => x.Email" Title="Email" />
+                <TemplateColumn>
+                    <CellTemplate>
+                        <MudTooltip Text="Edit">
+                            <MudIconButton Icon="@Icons.Material.Filled.EditNote" Color="Color.Primary" Variant="Variant.Filled" Size="Size.Small" OnClick="() => ViewFan(context.Item)"></MudIconButton>
+                        </MudTooltip>
+                        <MudTooltip Text="Delete">
+                            <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Variant="Variant.Filled" Size="Size.Small" OnClick="() => DeleteFan(context.Item.FanId)"></MudIconButton>
+                        </MudTooltip>
+                    </CellTemplate>
+                </TemplateColumn>
+            </Columns>
+            <NoRecordsContent>
+                No records found.
+            </NoRecordsContent>
+        </MudDataGrid>
+    </MudCardContent>
+</MudCard>
+
+@code {
+    [Inject] private IFanService _fanService { get; set; } = default!;
+    [Inject] private NavigationManager NavigationManager { get; set; } = default!;
+
+    private List<FanVM> _fans = new();
+    private HashSet<FanVM> selectedItems = new();
+    private bool _isLoading = false;
+
+    protected override async Task OnInitializedAsync() {
+        _fans = await _fanService.GetFansAsync();
+        StateHasChanged();
+    }
+
+    private async Task DeleteFan(int fanId) {
+        await _fanService.DeleteAsync(fanId);
+        _fans = await _fanService.GetFansAsync();
+        StateHasChanged();
+    }
+
+    private void ViewFan(FanVM? fanVM = null) => NavigationManager.NavigateTo($"/fan/{fanVM?.FanId ?? 0}");
+}
