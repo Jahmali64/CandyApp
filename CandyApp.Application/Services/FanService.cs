@@ -12,10 +12,10 @@ public interface IFanService {
 }
 
 public sealed class FanService : IFanService {
-    private readonly ICandyContextFactory _contextFactory;
+    private readonly IPirateKingDbContextFactory _contextFactory;
     private readonly CancellationToken _cancellationToken;
 
-    public FanService(ICandyContextFactory contextFactory, CancellationToken cancellationToken) {
+    public FanService(IPirateKingDbContextFactory contextFactory, CancellationToken cancellationToken) {
         _contextFactory = contextFactory;
         _cancellationToken = cancellationToken;
     }
