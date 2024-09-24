@@ -42,7 +42,13 @@
     }
 
     private async Task SaveFan() {
-        await _fanService.SaveAsync(_fan);
+        try {
+            await _fanService.SaveAsync(_fan);  
+        } catch (Exception ex) {
+            Console.WriteLine(ex.Message);
+        } finally {
+            NavigationManager.NavigateTo("/fans");
+        }
     }
 
     private void Cancel() {
