@@ -1,0 +1,45 @@
+﻿@using CandyApp.UI.Models;
+
+<MudForm @ref="_mudForm">
+    <MudGrid>
+        <MudAlert Severity="Severity.Info" Variant="Variant.Filled">
+            Create your new Candy account now. With this account you will gain access to exclusive perks and priviledges.
+        </MudAlert>
+        <MudItem xs="12">
+            <MudTextField T="string" @bind-Value="@userRegistration.Email" AutoFocus="true" Label="Email" Variant="Variant.Outlined" Required="true" />
+        </MudItem>
+        <MudItem xs="6">
+            <MudTextField T="string" @bind-Value="@userRegistration.FirstName" Label="First Name" Variant="Variant.Outlined" Required="true" />
+        </MudItem>
+        <MudItem xs="6">
+            <MudTextField T="string" @bind-Value="@userRegistration.LastName" Label="Last Name" Variant="Variant.Outlined" Required="true" />
+        </MudItem>
+        <MudItem xs="12">
+            <MudTextField T="string" @bind-Value="@userRegistration.Password" Label="Password" Variant="Variant.Outlined" InputType="InputType.Password" Required="true" />
+        </MudItem>
+        <MudItem xs="12">
+            <MudTextField T="string" @bind-Value="@userRegistration.ConfirmPassword" Label="Confirm Password" Variant="Variant.Outlined" InputType="InputType.Password" Required="true" />
+        </MudItem>
+        <MudItem xs="12">
+            <MudButton Variant="Variant.Filled" Color="Color.Success" EndIcon="@Icons.Material.Filled.PersonAdd">Create Account</MudButton>
+        </MudItem>
+    </MudGrid>
+    <MudGrid Justify="Justify.Center">
+        <MudItem>
+            <MudButton Variant="Variant.Text" OnClick="OnBackToLoginClicked" StartIcon="@Icons.Material.Filled.ArrowBack" Color="Color.Primary">Back To Login</MudButton>
+        </MudItem>
+    </MudGrid>
+</MudForm>
+
+@code {
+    [Parameter] public bool CreateAccount { get; set; } = true;
+    [Parameter] public EventCallback<bool> CreateAccountChanged { get; set; }
+
+    private MudForm? _mudForm = null;
+    private UserRegistrationViewModel userRegistration = new();
+
+    private async Task OnBackToLoginClicked() {
+        CreateAccount = false;
+        await CreateAccountChanged.InvokeAsync(CreateAccount);
+    }
+}

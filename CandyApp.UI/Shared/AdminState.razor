@@ -1,0 +1,19 @@
+﻿<CascadingValue Value="this">
+    @ChildContent
+</CascadingValue>
+
+@code {
+    [CascadingParameter] public AuthorizedUserVM? AuthorizedUserVM { get; set; } = default;
+
+    [Parameter] public RenderFragment ChildContent { get; set; } = default!;
+
+    public void SetAuthorizedUser(AuthorizedUserVM authorizedUser) {
+        this.AuthorizedUserVM = authorizedUser;
+        StateHasChanged();
+    }
+
+    public void Logout() {
+        this.AuthorizedUserVM = null;
+        StateHasChanged();
+    }
+}

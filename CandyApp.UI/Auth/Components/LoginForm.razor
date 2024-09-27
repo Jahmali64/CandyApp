@@ -1,0 +1,38 @@
+﻿@using CandyApp.UI.Models;
+
+<MudForm @ref="_mudForm">
+    <MudGrid>
+        <MudItem xs="12">
+            <MudAlert Severity="Severity.Info" Variant="Variant.Filled">
+                Welcome to Candy Apple's fan page! With your Candy account, you can now access and manage all of her fans seamlessly.
+            </MudAlert>
+        </MudItem>
+        <MudItem xs="12">
+            <MudTextField T="string" @bind-Value="@userLogin.Email" AutoFocus="true" Label="Email" Variant="Variant.Outlined" Required="true" />
+        </MudItem>
+        <MudItem xs="12">
+            <MudTextField T="string" @bind-Value="@userLogin.Password" Label="Password" Variant="Variant.Outlined" InputType="InputType.Password" Required="true" />
+        </MudItem>
+        <MudItem xs="12">
+            <MudButton Variant="Variant.Filled" Color="Color.Success" EndIcon="@Icons.Material.Filled.Login">Login</MudButton>
+        </MudItem>
+    </MudGrid>
+    <MudGrid Justify="Justify.Center">
+        <MudItem>
+            <MudButton Variant="Variant.Text" OnClick="OnCreateAccountClicked" StartIcon="@Icons.Material.Filled.PersonAdd" Color="Color.Primary">Create Account</MudButton>
+        </MudItem>
+    </MudGrid>
+</MudForm>
+
+@code {
+    [Parameter] public bool CreateAccount { get; set; } = false;
+    [Parameter] public EventCallback<bool> CreateAccountChanged { get; set; }
+
+    private MudForm? _mudForm = null;
+    private UserLoginViewModel userLogin = new();
+
+    private async Task OnCreateAccountClicked() {
+        CreateAccount = true;
+        await CreateAccountChanged.InvokeAsync(CreateAccount);
+    }
+}

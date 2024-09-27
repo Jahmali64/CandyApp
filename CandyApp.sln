@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandyApp.UI", "CandyApp.UI\CandyApp.UI.csproj", "{D0DE7551-0B27-4641-ACEF-30C8E3861F2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandyApp.UI", "CandyApp.UI\CandyApp.UI.csproj", "{D0DE7551-0B27-4641-ACEF-30C8E3861F2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandyApp.Infrastructure", "CandyApp.Infrastructure\CandyApp.Infrastructure.csproj", "{A91DBADB-4BC1-49F9-9EBE-867EDF1DFB9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandyApp.Infrastructure", "CandyApp.Infrastructure\CandyApp.Infrastructure.csproj", "{A91DBADB-4BC1-49F9-9EBE-867EDF1DFB9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandyApp.Domain", "CandyApp.Domain\CandyApp.Domain.csproj", "{C26B32C5-0DCE-4AB9-B5D1-144E1FBAAFAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandyApp.Domain", "CandyApp.Domain\CandyApp.Domain.csproj", "{C26B32C5-0DCE-4AB9-B5D1-144E1FBAAFAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandyApp.Application", "CandyApp.Application\CandyApp.Application.csproj", "{B7803971-FFD2-4053-B0B9-402DC0D53C24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CandyApp.Application", "CandyApp.Application\CandyApp.Application.csproj", "{B7803971-FFD2-4053-B0B9-402DC0D53C24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

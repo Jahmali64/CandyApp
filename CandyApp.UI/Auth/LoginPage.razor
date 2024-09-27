@@ -1,0 +1,21 @@
+﻿@page "/login"
+@using Microsoft.AspNetCore.Identity;
+@using CandyApp.UI.Auth.Components;
+
+<MudGrid Justify="Justify.Center">
+    <MudItem xs="6">
+        <MudCard>
+            <MudCardContent>
+                @if (!_isCreateAccount) {
+                    <LoginForm @bind-CreateAccount="_isCreateAccount" />
+                } else {
+                    <RegistrationForm @bind-CreateAccount="_isCreateAccount" />
+                }
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+</MudGrid>
+
+@code {
+    private bool _isCreateAccount = false;
+}
