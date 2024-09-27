@@ -33,6 +33,11 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
+//Add Authentication and Authorization
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapControllers();
+
 app.UseRouting();
 
 app.MapBlazorHub();

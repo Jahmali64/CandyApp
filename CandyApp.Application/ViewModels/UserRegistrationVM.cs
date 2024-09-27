@@ -1,6 +1,6 @@
-﻿namespace CandyApp.UI.Models;
+﻿namespace CandyApp.Application.ViewModels;
 
-public record class UserRegistrationViewModel {
+public record class UserRegistrationVM {
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;

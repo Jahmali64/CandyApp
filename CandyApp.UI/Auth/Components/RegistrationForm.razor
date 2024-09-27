@@ -1,6 +1,4 @@
-﻿@using CandyApp.UI.Models;
-
-<MudForm @ref="_mudForm">
+﻿<MudForm @ref="_mudForm">
     <MudGrid>
         <MudAlert Severity="Severity.Info" Variant="Variant.Filled">
             Create your new Candy account now. With this account you will gain access to exclusive perks and priviledges.
@@ -36,7 +34,7 @@
     [Parameter] public EventCallback<bool> CreateAccountChanged { get; set; }
 
     private MudForm? _mudForm = null;
-    private UserRegistrationViewModel userRegistration = new();
+    private UserRegistrationVM userRegistration = new();
 
     private async Task OnBackToLoginClicked() {
         CreateAccount = false;

@@ -1,6 +1,4 @@
-﻿@using CandyApp.UI.Models;
-
-<MudForm @ref="_mudForm">
+﻿<MudForm @ref="_mudForm">
     <MudGrid>
         <MudItem xs="12">
             <MudAlert Severity="Severity.Info" Variant="Variant.Filled">
@@ -29,7 +27,7 @@
     [Parameter] public EventCallback<bool> CreateAccountChanged { get; set; }
 
     private MudForm? _mudForm = null;
-    private UserLoginViewModel userLogin = new();
+    private UserLoginVM userLogin = new();
 
     private async Task OnCreateAccountClicked() {
         CreateAccount = true;
